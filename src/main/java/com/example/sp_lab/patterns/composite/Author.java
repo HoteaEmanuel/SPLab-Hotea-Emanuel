@@ -10,6 +10,10 @@ public class Author {
         this.surname = surname;
     }
 
+    public void print() {
+        System.out.println("Author: " + this.name + " " + this.surname);
+    }
+
     @Override
     public String toString() {
         return "Author{" +

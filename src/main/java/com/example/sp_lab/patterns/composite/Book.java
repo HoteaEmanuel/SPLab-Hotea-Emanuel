@@ -46,8 +46,29 @@ public class Book {
         this.authors.add(a);
     }
 
-    public void addContent(Element e) {
-        this.elements.add(e);
+    public Section addSection(String title) {
+        return addElement(new Section(title));
+    }
+
+    public Paragraph addParagraph(String text) {
+        return addElement(new Paragraph(text));
+    }
+
+    public Image addImage(String url) {
+        return addElement(new Image(url));
+    }
+
+    public Table addTable() {
+        return addElement(new Table());
+    }
+
+    public TableOfContents addTableOfContents() {
+        return addElement(new TableOfContents());
+    }
+
+    private <T extends Element> T addElement(T element) {
+        this.elements.add(element);
+        return element;
     }
 
     public List<Author> getAuthors() {
@@ -59,8 +80,10 @@ public class Book {
     }
 
     public void print() {
-        System.out.println("Book: " + this.title + ", authors: " + authors.toString());
+        System.out.println("Book: " + this.title);
 
+        for (Author a : authors)
+            a.print();
 
         for (Element e : elements)
             e.print();

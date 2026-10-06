@@ -8,16 +8,16 @@ public class TableOfContents implements Element {
 
     @Override
     public void addElement(Element e) {
-
+        throw new UnsupportedOperationException("TableOfContents cannot contain children");
     }
 
     @Override
     public Element getElement(int i) {
-        return null;
+        throw new UnsupportedOperationException("TableOfContents cannot contain children");
     }
 
     @Override
     public void removeElement(Element e) {
-
+        throw new UnsupportedOperationException("TableOfContents cannot contain children");
     }
 }

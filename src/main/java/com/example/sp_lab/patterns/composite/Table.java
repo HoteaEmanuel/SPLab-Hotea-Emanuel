@@ -8,16 +8,16 @@ public class Table implements Element {
 
     @Override
     public void addElement(Element e) {
-
+        throw new UnsupportedOperationException("Table cannot contain children");
     }
 
     @Override
     public Element getElement(int i) {
-        return null;
+        throw new UnsupportedOperationException("Table cannot contain children");
     }
 
     @Override
     public void removeElement(Element e) {
-
+        throw new UnsupportedOperationException("Table cannot contain children");
     }
 }

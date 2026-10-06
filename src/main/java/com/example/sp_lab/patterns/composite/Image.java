@@ -3,6 +3,10 @@ package com.example.sp_lab.patterns.composite;
 public class Image implements Element {
     private String url;
 
+    public Image(String url) {
+        this.url = url;
+    }
+
     @Override
     public void print() {
         System.out.println("Image: " + this.url);
@@ -10,16 +14,24 @@ public class Image implements Element {
 
     @Override
     public void addElement(Element e) {
-
+        throw new UnsupportedOperationException("Image cannot contain children");
     }
 
     @Override
     public Element getElement(int i) {
-        return null;
+        throw new UnsupportedOperationException("Image cannot contain children");
     }
 
     @Override
     public void removeElement(Element e) {
+        throw new UnsupportedOperationException("Image cannot contain children");
+    }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

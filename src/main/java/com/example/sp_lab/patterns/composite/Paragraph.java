@@ -14,17 +14,17 @@ public class Paragraph implements Element {
 
     @Override
     public void addElement(Element e) {
-
+        throw new UnsupportedOperationException("Paragraph cannot contain children");
     }
 
     @Override
     public Element getElement(int i) {
-        return null;
+        throw new UnsupportedOperationException("Paragraph cannot contain children");
     }
 
     @Override
     public void removeElement(Element e) {
-
+        throw new UnsupportedOperationException("Paragraph cannot contain children");
     }
 
     public String getText() {
