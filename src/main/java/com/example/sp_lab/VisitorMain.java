@@ -20,5 +20,35 @@ public class VisitorMain {
         BookStatistics stats = new BookStatistics();
         cap1.accept(stats);
         stats.printStatistics();
+
+        Book book = new Book("Crime and Punishment");
+        Section capitolul1 = book.addSection("Capitolul 1");
+        for (int i = 1; i <= 10; i++)
+            capitolul1.addElement(new Paragraph("Paragraph " + i));
+        Section capitolul2 = book.addSection("Capitolul 2");
+        capitolul2.addElement(new ImageProxy("ImageOne"));
+        capitolul2.addElement(new Paragraph("Some text"));
+        Section capitolul21 = new Section("Capitolul 2.1");
+        capitolul2.addElement(capitolul21);
+        capitolul21.addElement(new Table());
+        capitolul21.addElement(new Paragraph("More text"));
+        capitolul21.addElement(new Table());
+        capitolul21.addElement(new Table());
+
+        for (int i = 1; i <= 5; i++)
+            capitolul21.addElement(new Paragraph("Paragraph " + i));
+        Section capitolul22 = new Section("Capitolul 2.2");
+
+
+        for (int i = 1; i < 9; i++)
+            capitolul22.addElement(new Paragraph("Paragraph " + i));
+        capitolul2.addElement(capitolul22);
+        Section capitolul3 = book.addSection("Capitolul 3");
+        capitolul3.addElement(new Paragraph("The end"));
+
+
+        GenerateToC toc = new GenerateToC();
+        book.accept(toc);
+        toc.getToC().print();
     }
 }
