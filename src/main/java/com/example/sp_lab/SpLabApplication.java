@@ -1,6 +1,5 @@
 package com.example.sp_lab;
 
-import com.example.sp_lab.patterns.composite.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -29,13 +28,22 @@ public class SpLabApplication {
         System.out.println(s1.getElement(1).toString());
 
 
-        Image image = new Image("abc.url");
+        Element image = new ImageProxy("abc.url");
 
         try {
             new Paragraph("Un paragraf nu poate avea copii").addElement(image);
         } catch (UnsupportedOperationException e) {
             System.out.println("Paragraph: " + e.getMessage());
         }
+
+        crimeAndPunishment.addImage("a.png");
+        crimeAndPunishment.addImage("b.png");
+        crimeAndPunishment.addTable();
+        crimeAndPunishment.addParagraph("Epilog");
+
+        BookStatistics statistics = new BookStatistics();
+        crimeAndPunishment.accept(statistics);
+        statistics.printStatistics();
     }
 
 }

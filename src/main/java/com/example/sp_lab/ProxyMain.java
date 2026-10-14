@@ -1,4 +1,4 @@
-package com.example.sp_lab.patterns.proxy;
+package com.example.sp_lab;
 
 public class ProxyMain {
 

@@ -1,7 +1,8 @@
-package com.example.sp_lab.patterns.composite;
+package com.example.sp_lab;
 
 public class Paragraph implements Element {
     private String text;
+    private AlignStrategy alignStrategy;
 
     public Paragraph(String text) {
         this.text = text;
@@ -25,6 +26,15 @@ public class Paragraph implements Element {
     @Override
     public void removeElement(Element e) {
         throw new UnsupportedOperationException("Paragraph cannot contain children");
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+    }
+
+    public void setAlignStrategy(AlignStrategy alignStrategy) {
+        this.alignStrategy = alignStrategy;
     }
 
     public String getText() {

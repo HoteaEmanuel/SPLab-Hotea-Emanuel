@@ -1,15 +1,23 @@
-package com.example.sp_lab.patterns.composite;
+package com.example.sp_lab;
 
-public class Image implements Element {
-    private String url;
+public class ImageProxy implements Element {
+    private final String url;
+    private Image realImg;
 
-    public Image(String url) {
+    public ImageProxy(String url) {
         this.url = url;
+    }
+
+    private Image loadImage() {
+        if (realImg == null) {
+            realImg = new Image(url);
+        }
+        return realImg;
     }
 
     @Override
     public void print() {
-        System.out.println("Image: " + this.url);
+        loadImage().print();
     }
 
     @Override
@@ -27,11 +35,12 @@ public class Image implements Element {
         throw new UnsupportedOperationException("Image cannot contain children");
     }
 
-    public String getUrl() {
-        return url;
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public String getUrl() {
+        return url;
     }
 }

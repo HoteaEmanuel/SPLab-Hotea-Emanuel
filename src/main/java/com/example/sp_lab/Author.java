@@ -1,4 +1,4 @@
-package com.example.sp_lab.patterns.composite;
+package com.example.sp_lab;
 
 public class Author {
 
