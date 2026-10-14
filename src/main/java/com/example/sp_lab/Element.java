@@ -1,4 +1,4 @@
-package com.example.sp_lab.patterns.composite;
+package com.example.sp_lab;
 
 public interface Element {
     void print();
@@ -8,4 +8,6 @@ public interface Element {
     Element getElement(int i);
 
     void removeElement(Element e);
+
+    void accept(Visitor v);
 }

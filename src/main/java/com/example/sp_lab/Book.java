@@ -1,4 +1,4 @@
-package com.example.sp_lab.patterns.proxy;
+package com.example.sp_lab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,4 +88,12 @@ public class Book {
         for (Element e : elements)
             e.print();
     }
+
+    public void accept(Visitor v) {
+        v.visit(this);
+        for (Element e : elements)
+            e.accept(v);
+    }
+
+
 }

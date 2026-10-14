@@ -1,4 +1,4 @@
-package com.example.sp_lab.patterns.composite;
+package com.example.sp_lab;
 
 public class Table implements Element {
     @Override
@@ -19,5 +19,10 @@ public class Table implements Element {
     @Override
     public void removeElement(Element e) {
         throw new UnsupportedOperationException("Table cannot contain children");
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 }

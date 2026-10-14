@@ -1,4 +1,4 @@
-package com.example.sp_lab.patterns.composite;
+package com.example.sp_lab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,13 @@ public class Section implements Element {
     @Override
     public void removeElement(Element e) {
         elements.remove(e);
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
+        for(Element element : elements)
+            element.accept(v);
     }
 
     public List<Element> getElements() {

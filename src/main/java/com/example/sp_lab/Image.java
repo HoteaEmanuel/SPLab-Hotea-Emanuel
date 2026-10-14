@@ -1,4 +1,4 @@
-package com.example.sp_lab.patterns.proxy;
+package com.example.sp_lab;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +33,11 @@ public class Image implements Element {
     @Override
     public void removeElement(Element e) {
         throw new UnsupportedOperationException("Image cannot contain children");
+    }
+
+    @Override
+    public void accept(Visitor v) {
+        v.visit(this);
     }
 
     public String getUrl() {
