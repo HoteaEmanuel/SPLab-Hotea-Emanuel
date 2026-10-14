@@ -1,20 +1,19 @@
 package com.example.sp_lab;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class TableOfContents implements Element {
-    private final List<String> entries = new ArrayList<>();
+    private final Map<Section, Integer> entries = new LinkedHashMap<>();
 
-    public void addEntry(String title) {
-        entries.add(title);
+    public void addEntry(Section section, int page) {
+        entries.put(section, page);
     }
 
     @Override
     public void print() {
         System.out.println("Table of Contents");
-        for (String entry : entries)
-            System.out.println(entry);
+        entries.forEach((section, page) -> System.out.println(section.getTitle() + " - page " + page));
     }
 
     @Override
