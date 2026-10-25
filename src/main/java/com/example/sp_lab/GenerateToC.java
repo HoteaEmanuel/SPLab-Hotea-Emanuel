@@ -1,7 +1,10 @@
 package com.example.sp_lab;
 
 public class GenerateToC implements Visitor {
+    // Ma gandeam ca o pagina sa poata avea maxim 3 paragrafe pentru simplificare
     private static final int MAX_PARAGRAPHS_PER_PAGE = 3;
+
+    // In rest celelalte: imagine, tabel, sa ia o intreaga pagina
 
 
     private final TableOfContents toc = new TableOfContents();
