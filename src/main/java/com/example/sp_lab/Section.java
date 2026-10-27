@@ -1,11 +1,25 @@
 package com.example.sp_lab;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderColumn;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Section implements Element {
+@Entity
+public class Section extends BaseElement {
+    // Composition: children are saved/deleted together with the section; OrderColumn keeps their order
+    @OneToMany(targetEntity = BaseElement.class, cascade = CascadeType.ALL)
+    @OrderColumn
     private List<Element> elements;
     private String title;
+
+    // Required by JPA
+    protected Section() {
+        elements = new ArrayList<>();
+    }
 
     public Section(String title) {
         elements = new ArrayList<>();

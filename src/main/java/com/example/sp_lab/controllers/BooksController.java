@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
@@ -50,7 +51,7 @@ public class BooksController {
     }
 
     @GetMapping
-    public ResponseEntity<Map<Integer, Book>> getAllBooks() {
+    public ResponseEntity<List<Book>> getAllBooks() {
         return ResponseEntity.ok(syncExecutor.execute(new GetAllBooksCommand(context)).join());
     }
 

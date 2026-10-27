@@ -1,8 +1,18 @@
 package com.example.sp_lab;
 
-public class Paragraph implements Element {
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
+
+@Entity
+public class Paragraph extends BaseElement {
     private String text;
+    // Behaviour, not data: not persisted
+    @Transient
     private AlignStrategy alignStrategy;
+
+    // Required by JPA
+    protected Paragraph() {
+    }
 
     public Paragraph(String text) {
         this.text = text;

@@ -1,9 +1,16 @@
 package com.example.sp_lab;
 
+import jakarta.persistence.Entity;
+
 import java.util.concurrent.TimeUnit;
 
-public class Image implements Element {
+@Entity
+public class Image extends BaseElement {
     private String url;
+
+    // Required by JPA; skips the simulated loading delay
+    protected Image() {
+    }
 
     public Image(String url) {
         this.url = url;

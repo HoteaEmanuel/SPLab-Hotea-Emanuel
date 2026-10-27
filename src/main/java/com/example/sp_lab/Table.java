@@ -1,6 +1,11 @@
 package com.example.sp_lab;
 
-public class Table implements Element {
+import jakarta.persistence.Entity;
+
+// TABLE is a reserved SQL keyword, so the table needs another name (fully qualified: this class is also called Table)
+@Entity
+@jakarta.persistence.Table(name = "TableElement")
+public class Table extends BaseElement {
     @Override
     public void print() {
         System.out.println("Table");

@@ -1,8 +1,18 @@
 package com.example.sp_lab;
 
-public class ImageProxy implements Element {
-    private final String url;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
+
+@Entity
+public class ImageProxy extends BaseElement {
+    private String url;
+    // Loaded lazily at runtime, only the url is persisted
+    @Transient
     private Image realImg;
+
+    // Required by JPA
+    protected ImageProxy() {
+    }
 
     public ImageProxy(String url) {
         this.url = url;

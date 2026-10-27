@@ -1,9 +1,15 @@
 package com.example.sp_lab;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Transient;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class TableOfContents implements Element {
+@Entity
+public class TableOfContents extends BaseElement {
+    // Derived data, rebuilt by the GenerateToC visitor: not persisted
+    @Transient
     private final Map<Section, Integer> entries = new LinkedHashMap<>();
 
     public void addEntry(Section section, int page) {
