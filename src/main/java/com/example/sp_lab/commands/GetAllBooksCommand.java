@@ -2,9 +2,9 @@ package com.example.sp_lab.commands;
 
 import com.example.sp_lab.Book;
 
-import java.util.Map;
+import java.util.List;
 
-public class GetAllBooksCommand implements Command<Map<Integer, Book>> {
+public class GetAllBooksCommand implements Command<List<Book>> {
     private final CommandContext context;
 
     public GetAllBooksCommand(CommandContext context) {
@@ -12,7 +12,7 @@ public class GetAllBooksCommand implements Command<Map<Integer, Book>> {
     }
 
     @Override
-    public Map<Integer, Book> execute() {
+    public List<Book> execute() {
         return context.getBooksService().getAll();
     }
 }

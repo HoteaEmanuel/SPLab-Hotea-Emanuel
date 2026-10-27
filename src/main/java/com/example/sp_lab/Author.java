@@ -1,9 +1,21 @@
 package com.example.sp_lab;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+@Entity
 public class Author {
 
+    @Id
+    @GeneratedValue
+    private Integer id;
     private String name;
     private String surname;
+
+    // Required by JPA
+    protected Author() {
+    }
 
     public Author(String name, String surname) {
         this.name = name;
@@ -20,6 +32,10 @@ public class Author {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {

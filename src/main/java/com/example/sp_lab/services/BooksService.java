@@ -1,42 +1,50 @@
 package com.example.sp_lab.services;
 
 import com.example.sp_lab.Book;
+import com.example.sp_lab.persistence.DataRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
-// Receiver: keeps the books in memory until it gets connected to the persistence layer
+// Receiver: business operations on books, persisted through our DataRepository abstraction
 @Service
 public class BooksService {
-    private final Map<Integer, Book> books = new LinkedHashMap<>();
-    private final AtomicInteger nextId = new AtomicInteger(1);
+    private final DataRepository<Book, Integer> bookRepository;
 
-    public synchronized Map<Integer, Book> getAll() {
-        return new LinkedHashMap<>(books);
+    public BooksService(DataRepository<Book, Integer> bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    public synchronized Optional<Book> getById(int id) {
-        return Optional.ofNullable(books.get(id));
+    public List<Book> getAll() {
+        return bookRepository.findAll();
     }
 
-    public synchronized int create(Book book) {
-        int id = nextId.getAndIncrement();
-        books.put(id, book);
-        return id;
+    public Optional<Book> getById(int id) {
+        return bookRepository.findById(id);
     }
 
-    public synchronized Optional<Book> replace(int id, Book book) {
-        if (!books.containsKey(id))
-            return Optional.empty();
-
-        books.put(id, book);
-        return Optional.of(book);
+    public int create(Book book) {
+        return bookRepository.save(book).getId();
     }
 
-    public synchronized boolean delete(int id) {
-        return books.remove(id) != null;
+    // Replaces the fields the API exposes; elements and authors of the stored book are kept
+    @Transactional
+    public Optional<Book> replace(int id, Book book) {
+        return bookRepository.findById(id).map(existing -> {
+            existing.setTitle(book.getTitle());
+            existing.setNoOfPages(book.getNoOfPages());
+            return bookRepository.save(existing);
+        });
+    }
+
+    @Transactional
+    public boolean delete(int id) {
+        if (!bookRepository.existsById(id))
+            return false;
+
+        bookRepository.deleteById(id);
+        return true;
     }
 }
