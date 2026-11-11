@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-// Clients poll here to find out whether an accepted (202) request has finished
+
 @RestController
 @RequestMapping("/requests")
 public class RequestsController {
