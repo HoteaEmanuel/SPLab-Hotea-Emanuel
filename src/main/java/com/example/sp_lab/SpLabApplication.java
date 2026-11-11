@@ -3,9 +3,13 @@ package com.example.sp_lab;
 import com.example.sp_lab.difexamples.ClientComponent;
 import com.example.sp_lab.difexamples.SingletonComponent;
 import com.example.sp_lab.difexamples.TransientComponent;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.naming.Context;
 
@@ -87,4 +91,17 @@ public class SpLabApplication {
 
     }
 
+    // The page can be opened from another origin than the API (e.g. the IDE's preview server),
+    // so only the configured origins may reach the endpoints it needs
+    @Bean
+    public WebMvcConfigurer corsConfigurer(@Value("${app.cors.allowed-origins}") String[] allowedOrigins) {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/books-sse").allowedOrigins(allowedOrigins).allowedMethods("GET");
+                registry.addMapping("/books/**").allowedOrigins(allowedOrigins)
+                        .allowedMethods("GET", "POST", "PUT", "DELETE");
+            }
+        };
+    }
 }

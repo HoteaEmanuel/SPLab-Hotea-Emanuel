@@ -1,6 +1,7 @@
 package com.example.sp_lab.services;
 
 import com.example.sp_lab.Book;
+import com.example.sp_lab.observer.BooksSubject;
 import com.example.sp_lab.persistence.DataRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,13 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-// Receiver: business operations on books, persisted through our DataRepository abstraction
+
 @Service
 public class BooksService {
     private final DataRepository<Book, Integer> bookRepository;
 
-    public BooksService(DataRepository<Book, Integer> bookRepository) {
+    private final BooksSubject allBooksSubject;
+
+    public BooksService(DataRepository<Book, Integer> bookRepository, BooksSubject allBooksSubject) {
         this.bookRepository = bookRepository;
+        this.allBooksSubject = allBooksSubject;
     }
 
     public List<Book> getAll() {
@@ -26,10 +30,11 @@ public class BooksService {
     }
 
     public int create(Book book) {
-        return bookRepository.save(book).getId();
+        Book saved = bookRepository.save(book);
+        allBooksSubject.add(saved);
+        return saved.getId();
     }
 
-    // Replaces the fields the API exposes; elements and authors of the stored book are kept
     @Transactional
     public Optional<Book> replace(int id, Book book) {
         return bookRepository.findById(id).map(existing -> {

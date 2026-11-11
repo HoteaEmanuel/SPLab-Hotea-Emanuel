@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-// Presentation layer for /books: acts as client, creating a command per request and handing it to an executor
+
 @RestController
 @RequestMapping("/books")
 public class BooksController {
@@ -60,7 +60,7 @@ public class BooksController {
         return ResponseEntity.of(syncExecutor.execute(new GetBookByIdCommand(context, id)).join());
     }
 
-    /* Queued request, async, client gets 202 with an url to check the request status */
+
     @PostMapping
     public ResponseEntity<Map<String, String>> createBook(@RequestBody BookRequest request) {
         CompletableFuture<CreatedBook> result = asyncExecutor.execute(new CreateBookCommand(context, request));
