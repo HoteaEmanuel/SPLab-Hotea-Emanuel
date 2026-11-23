@@ -1,0 +1,30 @@
+PROJECT: Space Mission Planner
+
+1. DESCRIPTION
+   A REST application for planning space missions as a tree and replaying
+   them as a live simulation in the browser.
+
+2. TREE STRUCTURE
+   Mission -> Phase -> Maneuver -> [Note, Diagram, Fuel (kg), Delta-v (m/s), Duration (h)]
+
+3. FUNCTIONALITY
+   - <add>:     create missions, phases, maneuvers and their items
+   - <view>:    show the full tree or any subtree
+   - <summary>: totals per node (fuel, delta-v, duration) + feasibility check
+   - Extra:     live mission simulation streamed to the UI
+
+4. TECH STACK
+   Spring Boot REST API, H2 (Spring Data JPA), React web UI, SSE for live updates
+
+5. DESIGN PATTERNS
+   Composite       - tree of mission components
+   Visitor         - view and summary
+   Factory         - creating nodes and items
+   Chain of Resp.  - validation on add
+   Command         - add with undo
+   State           - phase lifecycle
+   Observer + SSE  - simulation events pushed to the UI
+
+6. GIT PLAN (one branch per feature)
+   composite-model, node-factory-add, view-tree-visitor, summary-visitor,
+   validation-chain, command-undo, phase-state, mission-simulation, web-ui
